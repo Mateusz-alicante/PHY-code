@@ -5,7 +5,10 @@ class solver():
     def __init__(self, values):
         self.values = values
         self.symbols = [Symbol(el) for el in list(values.keys())]
-        self.n_measurments = len(list(values.values())[0][0])
+        if (type(list(values.values())[0][0]) == int or type(list(values.values())[0][0]) == float):
+            self.n_measurments = 1
+        else:
+            self.n_measurments = len(list(values.values())[0][0])
 
 
     def define_equation(self, equation):

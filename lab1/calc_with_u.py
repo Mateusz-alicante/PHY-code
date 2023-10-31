@@ -1,5 +1,6 @@
 from sympy import *
 import math
+import statistics
 
 class solver():
     def __init__(self, values):
@@ -47,19 +48,41 @@ class solver():
         for i in range(self.n_measurments):
             print(f"measurment {i}: {self.solved_values[i]} +- {self.solved_errors[i]}")
 
-v = [6.443, 6.451, 6.475, 6.479]
+        print("average: ", statistics.mean([float(n) for n in self.solved_values]), " +- ", statistics.mean([float(n) for n in self.solved_errors]))
+
+# First experiment
+
+# v = [6.443, 6.451, 6.475, 6.479]
+# v_err = [0.0005, 0.0005, 0.0005, 0.0005]
+
+# i = [0.06338, 0.029344, 0.013916, 0.002399]
+# i_err = [0.000005, 0.0000005, 0.0000005, 0.0000005]
+
+# r = [100.03, 218.89, 463.6, 2696.5]
+# r_err = [0.005, 0.005, 0.05, 0.05]
+
+# def eq(v, i, r):
+#     return (v-i*r)/i
+
+
+# Second experiment
+
+v = [6.399, 6.407, 6.437, 6.469]
 v_err = [0.0005, 0.0005, 0.0005, 0.0005]
 
-i = [0.06338, 0.029344, 0.013916, 0.002399]
+i = [0.063381, 0.029266, 0.013883, 0.002397]
 i_err = [0.000005, 0.0000005, 0.0000005, 0.0000005]
 
 r = [100.03, 218.89, 463.6, 2696.5]
 r_err = [0.005, 0.005, 0.05, 0.05]
 
+def eq(v, i, r):
+    return (v * r)/(i * r - v)
+
+
+
 s = solver({"v": [v, v_err], "i": [i, i_err], "r": [r, r_err]})
 
-def eq(v, i, r):
-    return (v-i*r)/i
 
 s.define_equation(eq)
 
